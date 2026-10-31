@@ -52,9 +52,7 @@ dialog::backdrop{background:rgba(10,20,30,.55)}
 .dday-btns{display:flex;flex-direction:column;gap:8px;align-items:stretch}
 .dday-btns .btn{display:flex;align-items:center;justify-content:center;gap:6px;text-align:center}
 @media(max-width:520px){.dday-btns{width:100%}}
-.dday-box .lbl{font-size:.85rem;color:var(--muted)}
-.dday-box .val{font-size:1.35rem;font-weight:800;color:var(--warn)}
-.dday-box .val.ok{color:var(--accent)}
+.dday-box .lbl{font-size:1.1rem;color:var(--ink)}
 nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin-top:20px}
 nav .wrap{display:flex;gap:6px;overflow-x:auto;padding:8px 16px;scrollbar-width:none}
 nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:.9rem;padding:6px 12px;border-radius:999px}
@@ -116,7 +114,7 @@ footer{margin-top:36px;padding:26px 0 40px;border-top:1px solid var(--line);colo
 footer b{color:var(--ink)}
 #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#1c2733;color:#fff;padding:10px 18px;border-radius:999px;opacity:0;transition:.25s;pointer-events:none;font-size:.9rem}
 #toast.show{opacity:1;transform:translateX(-50%)}
-.dday-box .lbl,.dday-box .val,nav a,.info .k,.info .v,.lesson .grade,.lesson .subj,.lesson dt,.timeline .t,.notice,label,.btn{font-family:var(--f-guide)}
+.dday-box .lbl,nav a,.info .k,.info .v,.lesson .grade,.lesson .subj,.lesson dt,.timeline .t,.notice,label,.btn{font-family:var(--f-guide)}
 @media(max-width:700px){.hero .wrap{flex-direction:column;gap:18px}.hero-side{flex:none;width:min(100%,320px)}}
 @media(min-width:720px){.lessons{grid-template-columns:repeat(3,1fr)} .info{grid-template-columns:repeat(4,1fr)}}
 @media print{nav,.btns,#toast,.apply-form{display:none} .hero{background:#fff;color:#000;padding:10px 0} .chip{border-color:#999;color:#000;background:none} body{background:#fff}}
@@ -147,7 +145,6 @@ footer b{color:var(--ink)}
   <div class="dday-box">
     <div>
       <div class="lbl">신청 마감 · 2026.11.6.(금) 16:30</div>
-      <div class="val" id="dday">계산 중…</div>
     </div>
     <div class="dday-btns">
       <a class="btn" href="#apply">참관 신청하기</a>
@@ -302,18 +299,6 @@ footer b{color:var(--ink)}
 
 <script>
 (function(){
-  // D-day (마감: 2026-11-06 16:30 KST)
-  var deadline = new Date("2026-11-06T16:30:00+09:00");
-  var el = document.getElementById("dday");
-  function tick(){
-    var ms = deadline - new Date();
-    if(ms <= 0){ el.textContent = "신청이 마감되었습니다"; el.classList.remove("ok"); return; }
-    var d = Math.floor(ms/864e5), h = Math.floor(ms%864e5/36e5), m = Math.floor(ms%36e5/6e4);
-    el.classList.add("ok");
-    el.textContent = d > 0 ? "마감까지 " + d + "일 " + h + "시간" : "마감까지 " + h + "시간 " + m + "분";
-  }
-  tick(); setInterval(tick, 30000);
-
   // 신청 문구
   var org = document.getElementById("f-org"), nm = document.getElementById("f-name"),
       cl = document.getElementById("f-class"), sh = document.getElementById("f-share"),
