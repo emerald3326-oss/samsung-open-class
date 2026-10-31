@@ -29,9 +29,13 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);li
 .hero .school{font-size:.95rem;opacity:.85;letter-spacing:.04em}
 .hero .wrap{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
 .hero-text{flex:1;min-width:0}
-.hero-img{flex:0 0 300px;margin:0;background:#fff;border-radius:16px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.28)}
+.hero-side{flex:0 0 300px;display:flex;flex-direction:column;gap:10px}
+.hero-img{margin:0;background:#fff;border-radius:16px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.28)}
 .hero-img img{display:block;width:100%;height:auto;border-radius:11px}
 .hero h1{margin:8px 0 10px;font-family:var(--f-title);font-weight:400;font-size:clamp(2.2rem,7vw,3.2rem);line-height:1.2}
+.video-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.16);color:#fff;font-family:var(--f-guide);font-size:1rem;padding:10px 14px;border-radius:14px;cursor:pointer;text-decoration:none}
+.video-btn:hover{background:rgba(255,255,255,.26)}
+.video-btn .pl{width:28px;height:28px;border-radius:50%;background:#fff;color:#0f766e;display:grid;place-items:center}
 .hero .school,.chip{font-family:var(--f-guide)}
 .hero p{margin:0;opacity:.92;max-width:34em}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
@@ -113,7 +117,7 @@ footer b{color:var(--ink)}
 #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#1c2733;color:#fff;padding:10px 18px;border-radius:999px;opacity:0;transition:.25s;pointer-events:none;font-size:.9rem}
 #toast.show{opacity:1;transform:translateX(-50%)}
 .dday-box .lbl,.dday-box .val,nav a,.info .k,.info .v,.lesson .grade,.lesson .subj,.lesson dt,.timeline .t,.notice,label,.btn{font-family:var(--f-guide)}
-@media(max-width:700px){.hero .wrap{flex-direction:column;gap:18px}.hero-img{flex:none;width:min(100%,320px)}}
+@media(max-width:700px){.hero .wrap{flex-direction:column;gap:18px}.hero-side{flex:none;width:min(100%,320px)}}
 @media(min-width:720px){.lessons{grid-template-columns:repeat(3,1fr)} .info{grid-template-columns:repeat(4,1fr)}}
 @media print{nav,.btns,#toast,.apply-form{display:none} .hero{background:#fff;color:#000;padding:10px 0} .chip{border-color:#999;color:#000;background:none} body{background:#fff}}
 </style>
@@ -132,7 +136,10 @@ footer b{color:var(--ink)}
       <span class="chip">💬 수업 나눔 6교시</span>
     </div>
    </div>
+   <div class="hero-side">
    <figure class="hero-img"><img src="samsung-growth.png" alt="2026 삼성(인·지·감) 성장 프로젝트: 인성(仁), 지성(智), 감성(感) 성장 프로젝트" width="559" height="472"></figure>
+   <a class="video-btn" id="video" role="button" aria-disabled="true"><span class="pl"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>학교 소개 영상</a>
+   </div>
   </div>
 </header>
 
@@ -373,6 +380,12 @@ footer b{color:var(--ink)}
       setTimeout(function(){ if(dlg.open) dlg.close(); }, 1200);
     }).catch(function(){ rb.disabled = false; rs.textContent = "제출에 실패했습니다. 잠시 후 다시 시도해 주세요."; });
   });
+
+  // 학교 소개 영상 (영상 링크를 아래에 입력하면 활성화됩니다)
+  var VIDEO_URL = "";
+  var vd = document.getElementById("video");
+  if(VIDEO_URL){ vd.href = VIDEO_URL; vd.target = "_blank"; vd.rel = "noopener"; vd.removeAttribute("aria-disabled"); }
+  else vd.addEventListener("click", function(){ show("학교 소개 영상은 준비 중입니다"); });
 
   // 더보기 / 수업지도안 (수업지도안 파일 주소를 아래에 입력하면 버튼이 활성화됩니다)
   var PLAN_URLS = {moral:"", science:"", history:""};
