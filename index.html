@@ -61,6 +61,22 @@ h2::before{content:"";width:5px;height:1.1em;background:var(--primary);border-ra
 .lesson dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.92rem}
 .lesson dt{color:var(--muted)}
 .lesson dd{margin:0;font-weight:600}
+.topic-label{margin-top:12px;font-family:var(--f-guide);font-size:.8rem;color:var(--c);font-weight:700}
+.lesson h3{margin-top:2px}
+.lesson{display:flex;flex-direction:column}
+.lesson dl{margin-bottom:14px}
+.more{margin-top:auto;width:100%;display:flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-family:var(--f-guide);font-size:.95rem;padding:9px 12px;border-radius:12px;cursor:pointer}
+.more:hover{border-color:var(--c);color:var(--c)}
+.more svg{transition:transform .2s}
+.more[aria-expanded=true] svg{transform:rotate(180deg)}
+.more-panel{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+.more-panel.open{display:block}
+.plan{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:var(--card)}
+.plan .ico{flex:0 0 44px;height:44px;border-radius:12px;background:var(--c);color:#fff;display:grid;place-items:center}
+.plan .nm{font-family:var(--f-guide);font-weight:700}
+.plan .sub{font-size:.82rem;color:var(--muted)}
+a.plan:hover{border-color:var(--c)}
+.plan.off{opacity:.6;cursor:default}
 .timeline{list-style:none;margin:0;padding:0 0 0 22px;border-left:3px solid var(--line)}
 .timeline li{position:relative;padding:0 0 18px 14px}
 .timeline li::before{content:"";position:absolute;left:-30px;top:5px;width:13px;height:13px;border-radius:50%;background:var(--primary);border:3px solid var(--bg)}
@@ -140,18 +156,27 @@ footer b{color:var(--ink)}
   <div class="grid lessons">
     <article class="card lesson" style="--c:var(--c1)">
       <span class="grade">1학년 1반</span><span class="subj">도덕</span>
+      <div class="topic-label">도덕 수업 주제</div>
       <h3>소중한 생명체 이야기</h3>
       <dl><dt>수업자</dt><dd>남대성</dd><dt>장소</dt><dd>2층 삼성 다락방</dd><dt>시간</dt><dd>5교시 13:20~14:05</dd></dl>
+      <button class="more" type="button" aria-expanded="false" aria-controls="more-moral">더보기 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="more-panel" id="more-moral"><a class="plan off" data-plan="moral" aria-disabled="true"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg></span><span><span class="nm">수업지도안</span><br><span class="sub">도덕 · 준비 중</span></span></a></div>
     </article>
     <article class="card lesson" style="--c:var(--c2)">
       <span class="grade">2학년 1반</span><span class="subj">과학</span>
+      <div class="topic-label">과학 수업 주제</div>
       <h3>전압·전류 측정 데이터 공유와 그래프 시각화를 통한 미지의 저항값 추론하기</h3>
       <dl><dt>수업자</dt><dd>박슬기</dd><dt>장소</dt><dd>1층 사이언스Lab</dd><dt>시간</dt><dd>5교시 13:20~14:05</dd></dl>
+      <button class="more" type="button" aria-expanded="false" aria-controls="more-science">더보기 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="more-panel" id="more-science"><a class="plan off" data-plan="science" aria-disabled="true"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg></span><span><span class="nm">수업지도안</span><br><span class="sub">과학 · 준비 중</span></span></a></div>
     </article>
     <article class="card lesson" style="--c:var(--c3)">
       <span class="grade">3학년 1반</span><span class="subj">역사</span>
+      <div class="topic-label">역사 수업 주제</div>
       <h3>조선 전기 문화의 발달과 사회 변화</h3>
       <dl><dt>수업자</dt><dd>김소정</dd><dt>장소</dt><dd>1층 별관 VR역사관</dd><dt>시간</dt><dd>5교시 13:20~14:05</dd></dl>
+      <button class="more" type="button" aria-expanded="false" aria-controls="more-history">더보기 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="more-panel" id="more-history"><a class="plan off" data-plan="history" aria-disabled="true"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg></span><span><span class="nm">수업지도안</span><br><span class="sub">역사 · 준비 중</span></span></a></div>
     </article>
   </div>
   <p class="ref" style="margin-top:10px">※ 세 수업은 같은 시간(5교시)에 동시에 진행됩니다. 참관하실 수업을 한 곳 선택해 주세요.</p>
@@ -286,6 +311,22 @@ footer b{color:var(--ink)}
     }).catch(function(){
       btn.disabled = false;
       st.textContent = "제출에 실패했습니다. 문구를 복사해 GOE메신저로 보내 주세요.";
+    });
+  });
+
+  // 더보기 / 수업지도안 (수업지도안 파일 주소를 아래에 입력하면 버튼이 활성화됩니다)
+  var PLAN_URLS = {moral:"", science:"", history:""};
+  document.querySelectorAll(".plan[data-plan]").forEach(function(a){
+    var u = PLAN_URLS[a.getAttribute("data-plan")];
+    if(u){ a.href = u; a.target = "_blank"; a.rel = "noopener"; a.classList.remove("off"); a.removeAttribute("aria-disabled");
+           var sub = a.querySelector(".sub"); sub.textContent = sub.textContent.replace(" · 준비 중", " · 열기"); }
+  });
+  document.querySelectorAll(".more").forEach(function(b){
+    b.addEventListener("click", function(){
+      var panel = document.getElementById(b.getAttribute("aria-controls"));
+      var open = panel.classList.toggle("open");
+      b.setAttribute("aria-expanded", open);
+      b.firstChild.nodeValue = open ? "접기 " : "더보기 ";
     });
   });
 
