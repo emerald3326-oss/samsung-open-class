@@ -158,8 +158,8 @@ footer b{color:var(--ink)}
   <div class="notice"><b>신청 기한</b> · 2026.11.6.(금) 16시 30분까지</div>
   <div class="card" style="margin-top:12px">
     <ol class="steps">
-      <li><b>GOE메신저</b>에서 <b>삼성중 류정훈</b> 선생님께 메시지를 보냅니다.</li>
-      <li><b>소속, 이름, 수업나눔 참석여부</b>를 기재합니다.</li>
+      <li>아래 신청서에 <b>소속, 이름, 수업나눔 참석여부</b>를 입력하고 <b>신청서 제출</b>을 누릅니다. 제출 내용은 자동으로 취합됩니다.</li>
+      <li>제출이 안 될 때는 <b>문구 복사하기</b> 후 <b>GOE메신저(삼성중 류정훈)</b>로 보내 주세요.</li>
     </ol>
 
     <div class="apply-form" style="margin-top:16px">
@@ -173,12 +173,14 @@ footer b{color:var(--ink)}
         <div><label for="f-share">수업 나눔 참석</label>
           <select id="f-share"><option>참석</option><option>불참</option></select></div>
       </div>
-      <label for="f-msg">메신저에 붙여넣을 문구 (자동 생성)</label>
+      <label for="f-msg">신청 내용 미리보기 (메신저 전송용 문구)</label>
       <textarea id="f-msg" readonly></textarea>
       <div class="btns">
-        <button class="btn" id="copy" type="button">문구 복사하기</button>
+        <button class="btn" id="submit" type="button">신청서 제출</button>
+        <button class="btn sub" id="copy" type="button">문구 복사하기</button>
         <button class="btn sub" type="button" onclick="window.print()">안내문 인쇄</button>
       </div>
+      <p id="status" class="ref" role="status" aria-live="polite" style="margin:10px 0 0"></p>
     </div>
   </div>
 </section>
@@ -249,6 +251,26 @@ footer b{color:var(--ink)}
       navigator.clipboard.writeText(msg.value).then(function(){ show("복사되었습니다"); }, fallback);
     } else fallback();
     function fallback(){ msg.removeAttribute("readonly"); msg.select(); try{ document.execCommand("copy"); show("복사되었습니다"); }catch(e){ show("직접 복사해 주세요"); } msg.setAttribute("readonly",""); }
+  });
+
+  // 신청서 제출 → 구글 시트 (Apps Script 웹 앱)
+  var SCRIPT_URL = "";   // ← Apps Script 웹 앱 배포 URL을 여기에 입력
+  var btn = document.getElementById("submit"), st = document.getElementById("status");
+  btn.addEventListener("click", function(){
+    if(!org.value.trim() || !nm.value.trim()){ st.textContent = "소속과 이름을 입력해 주세요."; return; }
+    if(!SCRIPT_URL){ st.textContent = "자동 접수가 아직 연결되지 않았습니다. 문구를 복사해 GOE메신저로 보내 주세요."; return; }
+    btn.disabled = true; st.textContent = "제출 중…";
+    fetch(SCRIPT_URL, {
+      method: "POST", mode: "no-cors",
+      headers: {"Content-Type": "text/plain;charset=utf-8"},
+      body: JSON.stringify({org: org.value, name: nm.value, cls: cl.value, share: sh.value})
+    }).then(function(){
+      st.textContent = "✅ 신청이 접수되었습니다. 감사합니다.";
+      show("접수되었습니다");
+    }).catch(function(){
+      btn.disabled = false;
+      st.textContent = "제출에 실패했습니다. 문구를 복사해 GOE메신저로 보내 주세요.";
+    });
   });
 
   // 현재 섹션 강조
