@@ -6,7 +6,13 @@
 <title>삼성중학교 공개 수업 안내</title>
 <meta name="description" content="2026 삼성중학교 디지털 시민역량교육 실천학교·경기 미래형 과학실 수업공개 참관신청 안내">
 <style>
+@font-face{font-family:"Cheonsaeng";src:url("fonts/cheonsaeng.woff2") format("woff2");font-display:swap}
+@font-face{font-family:"Omyu";src:url("fonts/omyu.woff2") format("woff2");font-display:swap}
+@font-face{font-family:"Summersea";src:url("fonts/summersea.woff2") format("woff2");font-display:swap}
 :root{
+  --f-title:"Cheonsaeng","Noto Sans KR","Malgun Gothic",sans-serif;
+  --f-guide:"Omyu","Noto Sans KR","Malgun Gothic",sans-serif;
+  --f-body:"Summersea","Noto Sans KR","Malgun Gothic",sans-serif;
   --bg:#f4f7fb; --card:#fff; --ink:#1c2733; --muted:#5d6b7a; --line:#e2e8f0;
   --primary:#1d4ed8; --primary-soft:#e8efff; --accent:#0f9d77; --warn:#d9480f; --warn-soft:#fff1e8;
   --c1:#e8590c; --c2:#1d4ed8; --c3:#7048e8;
@@ -17,11 +23,16 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.6;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);line-height:1.6;-webkit-text-size-adjust:100%}
 .wrap{max-width:860px;margin:0 auto;padding:0 16px}
 .hero{background:linear-gradient(135deg,#1d4ed8,#0b2a77);color:#fff;padding:44px 0 56px}
 .hero .school{font-size:.95rem;opacity:.85;letter-spacing:.04em}
-.hero h1{margin:8px 0 10px;font-size:clamp(1.7rem,6vw,2.4rem);line-height:1.25}
+.hero .wrap{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
+.hero-text{flex:1;min-width:0}
+.hero-img{flex:0 0 300px;margin:0;background:#fff;border-radius:16px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.28)}
+.hero-img img{display:block;width:100%;height:auto;border-radius:11px}
+.hero h1{margin:8px 0 10px;font-family:var(--f-title);font-weight:400;font-size:clamp(2.2rem,7vw,3.2rem);line-height:1.2}
+.hero .school,.chip{font-family:var(--f-guide)}
 .hero p{margin:0;opacity:.92;max-width:34em}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
 .chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:5px 12px;font-size:.85rem}
@@ -35,7 +46,7 @@ nav .wrap{display:flex;gap:6px;overflow-x:auto;padding:8px 16px;scrollbar-width:
 nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:.9rem;padding:6px 12px;border-radius:999px}
 nav a:hover,nav a.on{background:var(--primary-soft);color:var(--primary);font-weight:700}
 section{padding:30px 0 6px;scroll-margin-top:50px}
-h2{font-size:1.25rem;margin:0 0 14px;display:flex;align-items:center;gap:8px}
+h2{font-family:var(--f-guide);font-weight:400;font-size:1.4rem;margin:0 0 14px;display:flex;align-items:center;gap:8px}
 h2::before{content:"";width:5px;height:1.1em;background:var(--primary);border-radius:3px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
 .grid{display:grid;gap:12px}
@@ -46,7 +57,7 @@ h2::before{content:"";width:5px;height:1.1em;background:var(--primary);border-ra
 .lesson{border-top:5px solid var(--c);position:relative}
 .lesson .grade{display:inline-block;font-size:.8rem;font-weight:700;color:#fff;background:var(--c);padding:2px 10px;border-radius:999px}
 .lesson .subj{font-size:.95rem;color:var(--muted);margin-left:6px;font-weight:600}
-.lesson h3{margin:10px 0 12px;font-size:1.1rem;line-height:1.4}
+.lesson h3{margin:10px 0 12px;font-family:var(--f-guide);font-weight:400;font-size:1.2rem;line-height:1.4}
 .lesson dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.92rem}
 .lesson dt{color:var(--muted)}
 .lesson dd{margin:0;font-weight:600}
@@ -74,6 +85,8 @@ footer{margin-top:36px;padding:26px 0 40px;border-top:1px solid var(--line);colo
 footer b{color:var(--ink)}
 #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#1c2733;color:#fff;padding:10px 18px;border-radius:999px;opacity:0;transition:.25s;pointer-events:none;font-size:.9rem}
 #toast.show{opacity:1;transform:translateX(-50%)}
+.dday-box .lbl,.dday-box .val,nav a,.info .k,.info .v,.lesson .grade,.lesson .subj,.lesson dt,.timeline .t,.notice,label,.btn{font-family:var(--f-guide)}
+@media(max-width:700px){.hero .wrap{flex-direction:column;gap:18px}.hero-img{flex:none;width:min(100%,320px)}}
 @media(min-width:720px){.lessons{grid-template-columns:repeat(3,1fr)} .info{grid-template-columns:repeat(4,1fr)}}
 @media print{nav,.btns,#toast,.apply-form{display:none} .hero{background:#fff;color:#000;padding:10px 0} .chip{border-color:#999;color:#000;background:none} body{background:#fff}}
 </style>
@@ -82,6 +95,7 @@ footer b{color:var(--ink)}
 
 <header class="hero">
   <div class="wrap">
+   <div class="hero-text">
     <div class="school">경기도 포천시 · 삼성중학교</div>
     <h1>2026 삼성중학교<br>공개 수업 안내</h1>
     <p>「디지털 시민역량교육 실천학교」·「경기 미래형 과학실(기반형)」 운영과 관련한 수업공개에 참관을 희망하는 선생님을 초대합니다.</p>
@@ -90,6 +104,8 @@ footer b{color:var(--ink)}
       <span class="chip">🕐 5교시 13:20~14:05</span>
       <span class="chip">💬 수업 나눔 6교시</span>
     </div>
+   </div>
+   <figure class="hero-img"><img src="samsung-growth.png" alt="2026 삼성(인·지·감) 성장 프로젝트: 인성(仁), 지성(智), 감성(感) 성장 프로젝트" width="559" height="472"></figure>
   </div>
 </header>
 
