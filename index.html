@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>삼성중학교 공개 수업 안내</title>
+<meta name="description" content="2026 삼성중학교 디지털 시민역량교육 실천학교·경기 미래형 과학실 수업공개 참관신청 안내">
+<style>
+:root{
+  --bg:#f4f7fb; --card:#fff; --ink:#1c2733; --muted:#5d6b7a; --line:#e2e8f0;
+  --primary:#1d4ed8; --primary-soft:#e8efff; --accent:#0f9d77; --warn:#d9480f; --warn-soft:#fff1e8;
+  --c1:#e8590c; --c2:#1d4ed8; --c3:#7048e8;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0f1620; --card:#18222f; --ink:#e8eef5; --muted:#9aa8b8; --line:#2a3748;
+    --primary:#6b95ff; --primary-soft:#1b2a4a; --warn:#ff9b63; --warn-soft:#3a2418; --accent:#3ddba8}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.6;-webkit-text-size-adjust:100%}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+.hero{background:linear-gradient(135deg,#1d4ed8,#0b2a77);color:#fff;padding:44px 0 56px}
+.hero .school{font-size:.95rem;opacity:.85;letter-spacing:.04em}
+.hero h1{margin:8px 0 10px;font-size:clamp(1.7rem,6vw,2.4rem);line-height:1.25}
+.hero p{margin:0;opacity:.92;max-width:34em}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:5px 12px;font-size:.85rem}
+.dday{margin-top:-30px}
+.dday-box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;box-shadow:0 6px 20px rgba(15,30,60,.08)}
+.dday-box .lbl{font-size:.85rem;color:var(--muted)}
+.dday-box .val{font-size:1.35rem;font-weight:800;color:var(--warn)}
+.dday-box .val.ok{color:var(--accent)}
+nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin-top:20px}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding:8px 16px;scrollbar-width:none}
+nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:.9rem;padding:6px 12px;border-radius:999px}
+nav a:hover,nav a.on{background:var(--primary-soft);color:var(--primary);font-weight:700}
+section{padding:30px 0 6px;scroll-margin-top:50px}
+h2{font-size:1.25rem;margin:0 0 14px;display:flex;align-items:center;gap:8px}
+h2::before{content:"";width:5px;height:1.1em;background:var(--primary);border-radius:3px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.grid{display:grid;gap:12px}
+.info{grid-template-columns:repeat(2,1fr)}
+.info .k{font-size:.8rem;color:var(--muted)}
+.info .v{font-weight:700;margin-top:2px}
+.lessons{grid-template-columns:1fr}
+.lesson{border-top:5px solid var(--c);position:relative}
+.lesson .grade{display:inline-block;font-size:.8rem;font-weight:700;color:#fff;background:var(--c);padding:2px 10px;border-radius:999px}
+.lesson .subj{font-size:.95rem;color:var(--muted);margin-left:6px;font-weight:600}
+.lesson h3{margin:10px 0 12px;font-size:1.1rem;line-height:1.4}
+.lesson dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.92rem}
+.lesson dt{color:var(--muted)}
+.lesson dd{margin:0;font-weight:600}
+.timeline{list-style:none;margin:0;padding:0 0 0 22px;border-left:3px solid var(--line)}
+.timeline li{position:relative;padding:0 0 18px 14px}
+.timeline li::before{content:"";position:absolute;left:-30px;top:5px;width:13px;height:13px;border-radius:50%;background:var(--primary);border:3px solid var(--bg)}
+.timeline .t{font-weight:800;color:var(--primary)}
+.timeline .d{color:var(--muted);font-size:.92rem}
+.notice{background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent);border-radius:14px;padding:14px 16px;font-size:.93rem}
+.notice b{color:var(--warn)}
+ol.steps{margin:0;padding-left:1.2em}
+ol.steps li{margin:6px 0}
+textarea{width:100%;min-height:96px;resize:vertical;border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit;background:var(--bg);color:var(--ink)}
+.form-row{display:grid;gap:10px;grid-template-columns:1fr 1fr;margin-bottom:10px}
+label{font-size:.82rem;color:var(--muted);display:block;margin-bottom:3px}
+input[type=text],select{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:var(--bg);color:var(--ink)}
+.btn{display:inline-block;border:0;cursor:pointer;background:var(--primary);color:#fff;font:inherit;font-weight:700;padding:11px 18px;border-radius:12px;text-decoration:none}
+.btn.sub{background:var(--primary-soft);color:var(--primary)}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.list{margin:0;padding-left:1.2em}
+.list li{margin:6px 0}
+.ref{font-size:.88rem;color:var(--muted)}
+.ref ul{margin:6px 0 0;padding-left:1.2em}
+footer{margin-top:36px;padding:26px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.87rem;text-align:center}
+footer b{color:var(--ink)}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#1c2733;color:#fff;padding:10px 18px;border-radius:999px;opacity:0;transition:.25s;pointer-events:none;font-size:.9rem}
+#toast.show{opacity:1;transform:translateX(-50%)}
+@media(min-width:720px){.lessons{grid-template-columns:repeat(3,1fr)} .info{grid-template-columns:repeat(4,1fr)}}
+@media print{nav,.btns,#toast,.apply-form{display:none} .hero{background:#fff;color:#000;padding:10px 0} .chip{border-color:#999;color:#000;background:none} body{background:#fff}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="school">경기도 포천시 · 삼성중학교</div>
+    <h1>2026 삼성중학교<br>공개 수업 안내</h1>
+    <p>「디지털 시민역량교육 실천학교」·「경기 미래형 과학실(기반형)」 운영과 관련한 수업공개에 참관을 희망하는 선생님을 초대합니다.</p>
+    <div class="chips">
+      <span class="chip">📅 11.16.(월)</span>
+      <span class="chip">🕐 5교시 13:20~14:05</span>
+      <span class="chip">💬 수업 나눔 6교시</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap dday">
+  <div class="dday-box">
+    <div>
+      <div class="lbl">신청 마감 · 2026.11.6.(금) 16:30</div>
+      <div class="val" id="dday">계산 중…</div>
+    </div>
+    <a class="btn" href="#apply">참관 신청하기</a>
+  </div>
+</div>
+
+<nav id="nav"><div class="wrap">
+  <a href="#overview">개요</a><a href="#lessons">공개 수업</a><a href="#schedule">일정</a><a href="#apply">신청 방법</a><a href="#etc">기타사항</a><a href="#contact">문의</a>
+</div></nav>
+
+<main class="wrap">
+
+<section id="overview">
+  <h2>수업공개 개요</h2>
+  <div class="card grid info">
+    <div><div class="k">수업일</div><div class="v">2026.11.16.(월)</div></div>
+    <div><div class="k">수업 교시</div><div class="v">5교시 (13:20~14:05)</div></div>
+    <div><div class="k">수업 나눔 협의</div><div class="v">6교시 (14:15~15:00)</div></div>
+    <div><div class="k">협의 장소</div><div class="v">삼성다락방</div></div>
+  </div>
+  <p class="ref" style="margin-top:12px"><b>관련 문서</b></p>
+  <div class="ref">
+    <ul>
+      <li>경기도교육청 융합교육과-8657(2026.5.6.)</li>
+      <li>삼성중학교-2711(2026.3.18.), 3235(2026.3.27.)</li>
+      <li>삼성중학교-10188(2025.9.18.), 13356(2025.12.3.)</li>
+    </ul>
+  </div>
+</section>
+
+<section id="lessons">
+  <h2>공개 수업 안내</h2>
+  <div class="grid lessons">
+    <article class="card lesson" style="--c:var(--c1)">
+      <span class="grade">1학년 1반</span><span class="subj">도덕</span>
+      <h3>소중한 생명체 이야기</h3>
+      <dl><dt>수업자</dt><dd>남O성</dd><dt>장소</dt><dd>2층 삼성 다락방</dd><dt>시간</dt><dd>5교시 13:20~14:05</dd></dl>
+    </article>
+    <article class="card lesson" style="--c:var(--c2)">
+      <span class="grade">2학년 1반</span><span class="subj">과학</span>
+      <h3>전압·전류 측정 데이터 공유와 그래프 시각화를 통한 미지의 저항값 추론하기</h3>
+      <dl><dt>수업자</dt><dd>박0기</dd><dt>장소</dt><dd>1층 사이언스Lab</dd><dt>시간</dt><dd>5교시 13:20~14:05</dd></dl>
+    </article>
+    <article class="card lesson" style="--c:var(--c3)">
+      <span class="grade">3학년 1반</span><span class="subj">역사</span>
+      <h3>조선 전기 문화의 발달과 사회 변화</h3>
+      <dl><dt>수업자</dt><dd>김0정</dd><dt>장소</dt><dd>1층 별관 VR역사관</dd><dt>시간</dt><dd>5교시 13:20~14:05</dd></dl>
+    </article>
+  </div>
+  <p class="ref" style="margin-top:10px">※ 세 수업은 같은 시간(5교시)에 동시에 진행됩니다. 참관하실 수업을 한 곳 선택해 주세요.</p>
+</section>
+
+<section id="schedule">
+  <h2>당일 일정</h2>
+  <div class="card">
+    <ol class="timeline">
+      <li><div class="t">13:20 ~ 14:05 · 5교시</div><div class="d">공개 수업 참관 (도덕 · 과학 · 역사 중 선택)</div></li>
+      <li><div class="t">14:05 ~ 14:15</div><div class="d">이동 및 휴식</div></li>
+      <li><div class="t">14:15 ~ 15:00 · 6교시</div><div class="d">수업 나눔 협의 · 삼성다락방</div></li>
+    </ol>
+    <p class="ref" style="margin:0">※ 수업 나눔 협의 일정은 상황에 따라 변동될 수 있습니다.</p>
+  </div>
+</section>
+
+<section id="apply">
+  <h2>참관 신청 방법</h2>
+  <div class="notice"><b>신청 기한</b> · 2026.11.6.(금) 16시 30분까지</div>
+  <div class="card" style="margin-top:12px">
+    <ol class="steps">
+      <li><b>GOE메신저</b>에서 <b>삼성중 류정훈</b> 선생님께 메시지를 보냅니다.</li>
+      <li><b>소속, 이름, 수업나눔 참석여부</b>를 기재합니다.</li>
+    </ol>
+
+    <div class="apply-form" style="margin-top:16px">
+      <div class="form-row">
+        <div><label for="f-org">소속</label><input id="f-org" type="text" placeholder="예) ○○중학교"></div>
+        <div><label for="f-name">이름</label><input id="f-name" type="text" placeholder="홍길동"></div>
+      </div>
+      <div class="form-row">
+        <div><label for="f-class">참관 희망 수업</label>
+          <select id="f-class"><option value="">선택 안 함</option><option>1학년 1반 도덕</option><option>2학년 1반 과학</option><option>3학년 1반 역사</option></select></div>
+        <div><label for="f-share">수업 나눔 참석</label>
+          <select id="f-share"><option>참석</option><option>불참</option></select></div>
+      </div>
+      <label for="f-msg">메신저에 붙여넣을 문구 (자동 생성)</label>
+      <textarea id="f-msg" readonly></textarea>
+      <div class="btns">
+        <button class="btn" id="copy" type="button">문구 복사하기</button>
+        <button class="btn sub" type="button" onclick="window.print()">안내문 인쇄</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="etc">
+  <h2>기타사항</h2>
+  <div class="card">
+    <ul class="list">
+      <li>등록부 서명 및 참관록 배부는 참여하시는 선생님께 메시지로 안내 예정입니다.</li>
+      <li>수업 나눔 협의 일정은 상황에 따라 변동될 수 있습니다.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>문의</h2>
+  <div class="card">
+    <div><b>삼성중학교 교육연구부 류정훈</b></div>
+    <ul class="list" style="margin-top:6px">
+      <li>전화 031-531-6852 / 팩스 031-531-6854</li>
+      <li>주소 경기도 포천시 신북면 삼성당길 7 (우 11136)</li>
+      <li>홈페이지 <a href="https://pocheonsamsung.ms.kr" target="_blank" rel="noopener">pocheonsamsung.ms.kr</a></li>
+    </ul>
+    <div class="btns"><a class="btn sub" href="tel:031-531-6852">전화하기</a></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap"><b>삼성중학교</b><br>청렴은 교육의 기본가치입니다.<br>기억을 넘어 희망으로 경기교육이 함께하겠습니다.</div>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+(function(){
+  // D-day (마감: 2026-11-06 16:30 KST)
+  var deadline = new Date("2026-11-06T16:30:00+09:00");
+  var el = document.getElementById("dday");
+  function tick(){
+    var ms = deadline - new Date();
+    if(ms <= 0){ el.textContent = "신청이 마감되었습니다"; el.classList.remove("ok"); return; }
+    var d = Math.floor(ms/864e5), h = Math.floor(ms%864e5/36e5), m = Math.floor(ms%36e5/6e4);
+    el.classList.add("ok");
+    el.textContent = d > 0 ? "마감까지 " + d + "일 " + h + "시간" : "마감까지 " + h + "시간 " + m + "분";
+  }
+  tick(); setInterval(tick, 30000);
+
+  // 신청 문구
+  var org = document.getElementById("f-org"), nm = document.getElementById("f-name"),
+      cl = document.getElementById("f-class"), sh = document.getElementById("f-share"),
+      msg = document.getElementById("f-msg");
+  function build(){
+    var t = "[삼성중 공개수업 참관 신청]\n소속: " + (org.value || "(소속)") +
+            "\n이름: " + (nm.value || "(이름)") +
+            (cl.value ? "\n참관 수업: " + cl.value : "") +
+            "\n수업나눔 참석여부: " + sh.value;
+    msg.value = t;
+  }
+  [org,nm,cl,sh].forEach(function(e){ e.addEventListener("input", build); e.addEventListener("change", build); });
+  build();
+
+  var toast = document.getElementById("toast"), tt;
+  function show(s){ toast.textContent = s; toast.classList.add("show"); clearTimeout(tt); tt = setTimeout(function(){ toast.classList.remove("show"); }, 1800); }
+  document.getElementById("copy").addEventListener("click", function(){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(msg.value).then(function(){ show("복사되었습니다"); }, fallback);
+    } else fallback();
+    function fallback(){ msg.removeAttribute("readonly"); msg.select(); try{ document.execCommand("copy"); show("복사되었습니다"); }catch(e){ show("직접 복사해 주세요"); } msg.setAttribute("readonly",""); }
+  });
+
+  // 현재 섹션 강조
+  var links = [].slice.call(document.querySelectorAll("nav a"));
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ links.forEach(function(a){ a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id); }); } });
+  }, {rootMargin: "-40% 0px -55% 0px"});
+  document.querySelectorAll("section").forEach(function(s){ io.observe(s); });
+})();
+</script>
+</body>
+</html>
