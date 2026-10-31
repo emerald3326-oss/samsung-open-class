@@ -59,7 +59,34 @@ function doPost(e) {
   }
 }
 
-function doGet() { return out_({ ok: true, msg: 'alive' }); }
+/**
+ * 교사용 조회 (admin.html)
+ * 비밀번호: Apps Script 왼쪽 '프로젝트 설정' > 스크립트 속성 > ADMIN_PW 에 입력
+ * 요청: ?action=list&pw=비밀번호
+ */
+function readTab_(name, headers) {
+  var sh = SpreadsheetApp.openById(SHEET_ID).getSheetByName(name);
+  var rows = [];
+  if (sh && sh.getLastRow() > 1) {
+    rows = sh.getRange(2, 1, sh.getLastRow() - 1, headers.length).getDisplayValues();
+  }
+  return { headers: headers, rows: rows };
+}
+
+function doGet(e) {
+  var p = (e && e.parameter) || {};
+  if (p.action !== 'list') return out_({ ok: true, msg: 'alive' });
+  var pw = PropertiesService.getScriptProperties().getProperty('ADMIN_PW');
+  if (!pw || String(p.pw || '') !== pw) {
+    Utilities.sleep(800); // 무작위 대입 억제
+    return out_({ ok: false, error: 'auth' });
+  }
+  return out_({
+    ok: true,
+    apply: readTab_(SHEET_NAME, HEADERS),
+    review: readTab_(REVIEW_SHEET_NAME, REVIEW_HEADERS)
+  });
+}
 
 function out_(o) {
   return ContentService.createTextOutput(JSON.stringify(o))

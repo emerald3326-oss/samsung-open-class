@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>참관 신청·소감 조회 (교사용)</title>
+<style>
+@font-face{font-family:"Omyu";src:url("fonts/omyu.woff2") format("woff2");font-display:swap}
+@font-face{font-family:"Sejong";src:url("fonts/sejong.woff2") format("woff2");font-display:swap}
+:root{--bg:#f4f7fb;--card:#fff;--ink:#1c2733;--muted:#5d6b7a;--line:#e2e8f0;--primary:#0f766e;--soft:#e3f4f1;--warn:#d9480f;
+  --f-guide:"Omyu","Noto Sans KR","Malgun Gothic",sans-serif;--f-body:"Sejong","Noto Sans KR","Malgun Gothic",sans-serif}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1620;--card:#18222f;--ink:#e8eef5;--muted:#9aa8b8;--line:#2a3748;--primary:#4fd1c0;--soft:#14322f;--warn:#ff9b63}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);line-height:1.55}
+.wrap{max-width:980px;margin:0 auto;padding:20px 16px 60px}
+h1{font-family:var(--f-guide);font-weight:400;font-size:1.6rem;margin:6px 0 2px}
+.sub{color:var(--muted);font-size:.9rem;margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+label{display:block;font-size:.82rem;color:var(--muted);margin-bottom:4px}
+input[type=password],input[type=search]{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:var(--bg);color:var(--ink)}
+.btn{border:0;cursor:pointer;background:var(--primary);color:#fff;font-family:var(--f-guide);font-size:.95rem;padding:10px 16px;border-radius:12px}
+.btn.sub2{background:var(--soft);color:var(--primary)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.msg{color:var(--warn);font-size:.9rem;margin:8px 0 0;min-height:1.2em}
+.tabs{display:flex;gap:6px;margin:14px 0 12px;border-bottom:1px solid var(--line)}
+.tab{font-family:var(--f-guide);font-size:1rem;background:none;border:0;color:var(--muted);padding:10px 16px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px}
+.tab[aria-selected=true]{color:var(--primary);border-bottom-color:var(--primary)}
+.tab .n{display:inline-block;margin-left:6px;background:var(--soft);color:var(--primary);border-radius:999px;padding:0 8px;font-size:.82rem}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 14px}
+.stat b{font-family:var(--f-guide);font-size:1.2rem;color:var(--primary)}
+.stat span{display:block;font-size:.78rem;color:var(--muted)}
+.tools{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.tools input{flex:1;min-width:180px}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-guide);font-weight:400;background:var(--soft);color:var(--primary);white-space:nowrap}
+td.long{min-width:280px;white-space:pre-wrap}
+tr:last-child td{border-bottom:0}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>참관 신청·소감 조회</h1>
+  <p class="sub">삼성중학교 공개 수업 · 교사용 (개인정보 포함, 외부 공유 금지)</p>
+
+  <div class="card" id="login" style="max-width:420px">
+    <label for="pw">비밀번호</label>
+    <form class="row" id="lf" style="flex-wrap:nowrap">
+      <input id="pw" type="password" autocomplete="current-password" required>
+      <button class="btn" type="submit">열기</button>
+    </form>
+    <p class="msg" id="lmsg" role="alert"></p>
+  </div>
+
+  <div id="view" hidden>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="t-apply" aria-selected="true" aria-controls="p-apply">참관 신청 <span class="n" id="n-apply">0</span></button>
+      <button class="tab" role="tab" id="t-review" aria-selected="false" aria-controls="p-review">참관 소감 <span class="n" id="n-review">0</span></button>
+    </div>
+    <div class="tools">
+      <input id="q" type="search" placeholder="소속·이름·내용 검색" aria-label="검색">
+      <button class="btn sub2" id="csv" type="button">CSV 저장</button>
+      <button class="btn sub2" id="reload" type="button">새로고침</button>
+      <button class="btn sub2" id="logout" type="button">잠그기</button>
+    </div>
+    <div id="p-apply" role="tabpanel"><div class="stats" id="stats"></div><div class="scroll" id="tb-apply"></div></div>
+    <div id="p-review" role="tabpanel" hidden><div class="scroll" id="tb-review"></div></div>
+    <p class="sub" id="upd" style="margin-top:10px"></p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxsyEtkHWmb3Ow7VK1NFlJFvaHnxAcAvA4cAMYEdnBu1pcqUOSz3V96-0sJImTv100-/exec";
+  var $ = function(id){ return document.getElementById(id); };
+  var data = null, cur = "apply", pw = "";
+  try{ pw = sessionStorage.getItem("adminpw") || ""; }catch(e){}
+
+  function load(auto){
+    $("lmsg").textContent = "";
+    return fetch(SCRIPT_URL + "?action=list&pw=" + encodeURIComponent(pw)).then(function(r){ return r.json(); }).then(function(j){
+      if(!j.ok){
+        try{ sessionStorage.removeItem("adminpw"); }catch(e){}
+        $("view").hidden = true; $("login").hidden = false;
+        $("lmsg").textContent = j.error === "auth" ? (auto ? "" : "비밀번호가 올바르지 않거나 아직 설정되지 않았습니다.") : "조회에 실패했습니다.";
+        return;
+      }
+      try{ sessionStorage.setItem("adminpw", pw); }catch(e){}
+      data = j; $("login").hidden = true; $("view").hidden = false;
+      $("upd").textContent = "조회 시각 " + new Date().toLocaleString("ko-KR");
+      render();
+    }).catch(function(){ $("lmsg").textContent = "연결에 실패했습니다. 잠시 후 다시 시도해 주세요."; });
+  }
+
+  function cell(tag, text, cls){ var e = document.createElement(tag); e.textContent = text; if(cls) e.className = cls; return e; }
+
+  function table(box, t, longCol){
+    var q = $("q").value.trim().toLowerCase();
+    box.textContent = "";
+    // 최신순
+    var rows = t.rows.slice().reverse().filter(function(r){ return !q || r.join(" ").toLowerCase().indexOf(q) >= 0; });
+    if(!rows.length){ box.appendChild(cell("div", t.rows.length ? "검색 결과가 없습니다." : "아직 접수된 내용이 없습니다.", "empty")); return rows; }
+    var tb = document.createElement("table"), hd = document.createElement("tr");
+    t.headers.forEach(function(h){ hd.appendChild(cell("th", h)); }); tb.appendChild(hd);
+    rows.forEach(function(r){
+      var tr = document.createElement("tr");
+      r.forEach(function(v,i){ tr.appendChild(cell("td", v, i === longCol ? "long" : "")); });
+      tb.appendChild(tr);
+    });
+    box.appendChild(tb); return rows;
+  }
+
+  function stats(){
+    var rows = data.apply.rows, box = $("stats"); box.textContent = "";
+    function add(label, n){ var d = document.createElement("div"); d.className = "stat"; var b = cell("b", String(n)); var s = cell("span", label); d.appendChild(b); d.appendChild(s); box.appendChild(d); }
+    add("전체 신청", rows.length);
+    ["1학년 1반 도덕","2학년 1반 과학","3학년 1반 역사"].forEach(function(c){ add(c, rows.filter(function(r){ return r[3] === c; }).length); });
+    add("수업나눔 참석", rows.filter(function(r){ return r[4] === "참석"; }).length);
+  }
+
+  function render(){
+    $("n-apply").textContent = data.apply.rows.length; $("n-review").textContent = data.review.rows.length;
+    stats(); table($("tb-apply"), data.apply, -1); table($("tb-review"), data.review, 4);
+  }
+
+  function tab(k){
+    cur = k;
+    ["apply","review"].forEach(function(x){ $("t-"+x).setAttribute("aria-selected", x === k); $("p-"+x).hidden = x !== k; });
+  }
+  $("t-apply").onclick = function(){ tab("apply"); };
+  $("t-review").onclick = function(){ tab("review"); };
+  $("q").addEventListener("input", function(){ if(data) render(); });
+  $("reload").onclick = function(){ load(); };
+  $("logout").onclick = function(){ try{ sessionStorage.removeItem("adminpw"); }catch(e){} pw = ""; data = null; $("view").hidden = true; $("login").hidden = false; $("pw").value = ""; };
+  $("lf").addEventListener("submit", function(e){ e.preventDefault(); pw = $("pw").value; load(); });
+
+  $("csv").onclick = function(){
+    if(!data) return;
+    var t = data[cur];
+    function esc(v){ v = String(v); if(/^[=+\-@]/.test(v)) v = "'" + v; return '"' + v.replace(/"/g,'""') + '"'; }
+    var lines = [t.headers].concat(t.rows).map(function(r){ return r.map(esc).join(","); });
+    var blob = new Blob(["﻿" + lines.join("\r\n")], {type:"text/csv;charset=utf-8"});
+    var a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+    a.download = (cur === "apply" ? "참관신청" : "참관소감") + ".csv"; a.click(); URL.revokeObjectURL(a.href);
+  };
+
+  if(pw) load(true);
+})();
+</script>
+</body>
+</html>
