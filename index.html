@@ -254,7 +254,7 @@ footer b{color:var(--ink)}
   });
 
   // 신청서 제출 → 구글 시트 (Apps Script 웹 앱)
-  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxsyEtkHWmb3Ow7VK1NFlJFvaHnxAcAvA4cAMYEdnBu1pcqUOSz3V96-0sJImTv100-/exec";   // ← Apps Script 웹 앱 배포 URL을 여기에 입력
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxsyEtkHWmb3Ow7VK1NFlJFvaHnxAcAvA4cAMYEdnBu1pcqUOSz3V96-0sJImTv100-/exec";
   var btn = document.getElementById("submit"), st = document.getElementById("status");
   btn.addEventListener("click", function(){
     if(!org.value.trim() || !nm.value.trim()){ st.textContent = "소속과 이름을 입력해 주세요."; return; }
