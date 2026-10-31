@@ -6,17 +6,23 @@
 var SHEET_ID = '1fMP-P4emzD7yUO7QEdXKzsxfF7Yx8zYuyF5gTtqBudk';
 var SHEET_NAME = '참관신청'; // 없으면 자동 생성
 var HEADERS = ['접수시각', '소속', '이름', '참관 희망 수업', '수업나눔 참석'];
+var REVIEW_SHEET_NAME = '참관소감'; // 없으면 자동 생성
+var REVIEW_HEADERS = ['접수시각', '소속', '이름', '참관한 수업', '참관 소감'];
 
-function getSheet_() {
+function getSheet_(name, headers) {
   var ss = SpreadsheetApp.openById(SHEET_ID);
-  var sh = ss.getSheetByName(SHEET_NAME);
-  if (!sh) sh = ss.insertSheet(SHEET_NAME);
+  var sh = ss.getSheetByName(name);
+  if (!sh) sh = ss.insertSheet(name);
   if (sh.getLastRow() === 0) {
-    sh.appendRow(HEADERS);
+    sh.appendRow(headers);
     sh.setFrozenRows(1);
-    sh.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold');
+    sh.getRange(1, 1, 1, headers.length).setFontWeight('bold');
   }
   return sh;
+}
+
+function now_() {
+  return Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss');
 }
 
 function clean_(v, max) {
@@ -35,9 +41,15 @@ function doPost(e) {
     if (!org || !name) {
       return out_({ ok: false, error: 'missing' });
     }
-    getSheet_().appendRow([
-      Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss'),
-      org, name, clean_(d.cls), clean_(d.share, 10)
+    if (d.type === 'review') {
+      var text = clean_(d.text, 2000);
+      if (!text) return out_({ ok: false, error: 'missing' });
+      getSheet_(REVIEW_SHEET_NAME, REVIEW_HEADERS)
+        .appendRow([now_(), org, name, clean_(d.cls), text]);
+      return out_({ ok: true });
+    }
+    getSheet_(SHEET_NAME, HEADERS).appendRow([
+      now_(), org, name, clean_(d.cls), clean_(d.share, 10)
     ]);
     return out_({ ok: true });
   } catch (err) {
