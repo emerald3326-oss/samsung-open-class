@@ -295,6 +295,13 @@ footer b{color:var(--ink)}
   </form>
 </dialog>
 
+<dialog id="vdlg" aria-label="학교 소개 영상" style="width:min(94vw,900px);background:#000">
+  <div style="position:relative">
+    <video id="vid" controls playsinline preload="none" style="display:block;width:100%;max-height:80vh;background:#000"></video>
+    <button class="btn" id="v-close" type="button" aria-label="영상 닫기" style="position:absolute;top:10px;right:10px;padding:6px 12px">닫기 ✕</button>
+  </div>
+</dialog>
+
 <div id="toast"></div>
 
 <script>
@@ -367,11 +374,18 @@ footer b{color:var(--ink)}
     }).catch(function(){ rb.disabled = false; rs.textContent = "제출에 실패했습니다. 잠시 후 다시 시도해 주세요."; });
   });
 
-  // 학교 소개 영상 (영상 링크를 아래에 입력하면 활성화됩니다)
-  var VIDEO_URL = "";
-  var vd = document.getElementById("video");
-  if(VIDEO_URL){ vd.href = VIDEO_URL; vd.target = "_blank"; vd.rel = "noopener"; vd.removeAttribute("aria-disabled"); }
-  else vd.addEventListener("click", function(){ show("학교 소개 영상은 준비 중입니다"); });
+  // 학교 소개 영상 (페이지 안에서 재생)
+  var VIDEO_URL = "media/samsung-intro.mp4";
+  var vd = document.getElementById("video"), vdlg = document.getElementById("vdlg"), vid = document.getElementById("vid");
+  vd.removeAttribute("aria-disabled");
+  vd.setAttribute("tabindex", "0");
+  function openVideo(){ if(!vid.getAttribute("src")) vid.src = VIDEO_URL; vdlg.showModal(); vid.play().catch(function(){}); }
+  vd.addEventListener("click", openVideo);
+  vd.addEventListener("keydown", function(e){ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); openVideo(); } });
+  function closeVideo(){ vid.pause(); vdlg.close(); }
+  document.getElementById("v-close").addEventListener("click", closeVideo);
+  vdlg.addEventListener("click", function(e){ if(e.target === vdlg) closeVideo(); });
+  vdlg.addEventListener("close", function(){ vid.pause(); });
 
   // 더보기 / 수업지도안 (수업지도안 파일 주소를 아래에 입력하면 버튼이 활성화됩니다)
   var PLAN_URLS = {moral:"", science:"", history:""};
