@@ -316,7 +316,7 @@ footer b{color:var(--ink)}
   vdlg.addEventListener("close", function(){ vid.pause(); });
 
   // 더보기 / 수업지도안 (수업지도안 파일 주소를 아래에 입력하면 버튼이 활성화됩니다)
-  var PLAN_URLS = {moral:"", science:"", history:""};
+  var PLAN_URLS = {moral:"", science:"plans/science.html", history:""};
   document.querySelectorAll(".plan[data-plan]").forEach(function(a){
     var u = PLAN_URLS[a.getAttribute("data-plan")];
     if(u){ a.href = u; a.target = "_blank"; a.rel = "noopener"; a.classList.remove("off"); a.removeAttribute("aria-disabled");

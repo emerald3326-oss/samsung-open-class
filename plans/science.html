@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>과학 공개수업 지도안</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;800&family=Noto+Serif+KR:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--desk:#eef0f3;--paper:#fff;--ink:#111;--muted:#5b6270;--accent:#2457c5;--blank-bg:#f3f7ff;--blank-line:#2457c5;--bar:#ffffffee;--bar-line:#d9dde5;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--desk);color:var(--ink)}
+body{font-family:'함초롬바탕','Noto Serif KR',serif;font-size:10pt;-webkit-text-size-adjust:100%}
+.bar{position:sticky;top:0;z-index:10;display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 16px;background:var(--bar);backdrop-filter:blur(6px);border-bottom:1px solid var(--bar-line);font-family:'Noto Sans KR',sans-serif;font-size:14px}
+.bar .ttl{font-weight:700;margin-right:auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.bar .prog{color:var(--muted);font-size:13px}
+.bar button{font:inherit;font-size:13px;padding:6px 12px;border-radius:8px;border:1px solid var(--bar-line);background:#fff;color:var(--ink);cursor:pointer}
+.bar button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.bar button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.saved{font-size:12px;color:var(--muted)}
+.page{width:min(794px,100% - 32px);margin:24px auto 48px;background:var(--paper);padding:24px 45px 24px 45px;box-shadow:0 1px 3px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.06);border-radius:2px;overflow-wrap:anywhere}
+.p{line-height:1.6;min-height:1em;white-space:normal}
+.p.has-block{text-indent:0!important}
+.p.pb{margin-top:40px;padding-top:28px;border-top:2px dashed #c9ced8}
+.tab{display:inline-block;width:2em}
+.num{font-weight:inherit}
+.tblwrap{max-width:100%;overflow-x:auto}
+.tblwrap table{border-collapse:collapse;table-layout:fixed;margin:2px 0;text-indent:0}
+td{padding:2px 6px;word-break:keep-all;overflow-wrap:anywhere}
+td .p{text-indent:0}
+img{max-width:100%;height:auto;vertical-align:middle}
+.who{display:flex;justify-content:flex-end;gap:14px;flex-wrap:wrap;font:13px/1.6 'Noto Sans KR',sans-serif;margin:-8px 0 10px}
+.grp{position:relative;margin:2px auto;text-indent:0;max-width:100%}
+.grp-in{position:absolute;left:0;top:0;transform-origin:0 0}
+.gitem{position:absolute}
+.gitem .grp{margin:0;width:100%!important}
+.gbox{width:100%;height:100%;overflow:visible}
+.gbox .p{white-space:nowrap}
+.box{display:inline-block;vertical-align:top;padding:6px 8px;margin:2px 0;text-indent:0}
+.eq{font-family:'Cambria Math','Times New Roman',serif;font-style:italic;padding:0 2px}
+input.blank{font:inherit;font-family:'Noto Sans KR',sans-serif;color:var(--accent);border:0;border-bottom:1.5px solid var(--blank-line);background:var(--blank-bg);padding:0 4px;margin:0 2px;height:1.45em;vertical-align:baseline;border-radius:3px 3px 0 0;text-indent:0;max-width:100%}
+input.blank-par{margin:0 1px}
+textarea.blank-area{display:block;width:100%;font:inherit;font-family:'Noto Sans KR',sans-serif;color:var(--accent);background:var(--blank-bg);border:1px dashed #9db4e6;border-radius:4px;padding:4px 6px;resize:vertical;text-indent:0;min-height:2em;line-height:1.6;margin:2px 0}
+td.cell-blank textarea.blank-area{border:0;margin:0;min-height:100%;border-radius:0}
+input.blank:focus,textarea.blank-area:focus{outline:2px solid var(--accent);outline-offset:1px;background:#fff}
+.note{width:min(794px,100% - 32px);margin:12px auto 0;font:13px/1.5 'Noto Sans KR',sans-serif;color:#7a5200;background:#fff7e0;border:1px solid #f0d58a;border-radius:8px;padding:8px 12px}
+@media (max-width:640px){.page{padding:20px 14px;width:calc(100% - 16px);margin:8px auto 32px}.bar{padding:8px 12px}}
+@media print{
+  @page{size:A4;margin:12mm}
+  html,body{background:#fff}
+  .bar,.note{display:none!important}
+  .page{box-shadow:none;margin:0;padding:0;width:auto}
+  .p.pb{break-before:page;border-top:0;margin-top:0;padding-top:0}
+  input.blank,textarea.blank-area{background:transparent;color:#000}
+  textarea.blank-area{border:0;resize:none}
+  .tblwrap{overflow:visible}
+}
+
+</style>
+</head>
+<body>
+<header class="bar">
+  <span class="ttl">과학 공개수업 지도안</span>
+  <span class="prog" id="prog"></span>
+  <span class="saved" id="saved"></span>
+  <button type="button" id="btnClear">답안 지우기</button>
+  <button type="button" id="btnSave">답안 포함 저장</button>
+  <button type="button" class="primary" id="btnPrint">인쇄 / PDF</button>
+</header>
+<main class="page" id="sheet">
+<div class="p"> </div><div class="p"> </div><div class="p has-block"><span> </span><div class="box" style="border:1px solid #999"><div class="p"><span>  나눔과 성찰을 위한 수∙업∙열∙기</span></div></div><div class="tblwrap"><table style="width:min(636px,100%)"><colgroup><col style="width:13.40%"><col style="width:23.00%"><col style="width:12.21%"><col style="width:19.45%"><col style="width:12.75%"><col style="width:19.18%"></colgroup><tbody><tr><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:28px"><div class="p"><span>수업교사</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:28px"><div class="p"><span>박슬기</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:28px"><div class="p"><span>교과</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:28px"><div class="p"><span>과학</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:28px"><div class="p"><span>공개학급</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:28px"><div class="p"><span>2-1</span></div></td></tr><tr><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:37px"><div class="p"><span>수업일시</span></div></td><td colspan="3" style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:37px"><div class="p"><span>2026년  11월  16일  월요일 (5교시)</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:37px"><div class="p"><span>공개장소</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:37px"><div class="p"><span>Science Lab</span></div></td></tr></tbody></table></div></div><div class="p"> </div><div class="p has-block"><div class="tblwrap"><table style="width:min(635px,100%)"><colgroup><col style="width:15.53%"><col style="width:84.47%"></colgroup><tbody><tr><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:77px"><div class="p"><span>단원 또는 학습주제</span></div><div class="p"><span>(학습목표) </span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:77px"><div class="p"><span>7. 전기와 자기 — 전압과 전류의 관계 (옴의 법칙)</span></div><div class="p"><span>학습목표: 전압과 전류를 측정해 데이터를 수집·시각화하고, 여러 모둠의 실험 결과를 분석하여 저항의 크기를 설명할 수 있다.</span></div></td></tr><tr><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:118px"><div class="p"><span>수업 개요</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:118px"><div class="p"><span> 본 수업은 「블라인드 저항 연구소」라는 활동으로, 모둠별 실험 데이터를 실시간으로 수집·공유·분석하는 미래형 과학실 활용 탐구 수업이다. 학생들은 VIR 실험 키트로 저항에 걸리는 전압과 흐르는 전류를 측정하고, 모둠별 태블릿의 웹앱에 측정값을 입력한다. 입력된 모든 모둠의 데이터는 교사 전자칠판에 실시간으로 통합되어 그래프로 시각화된다. 학생들은 전체 데이터를 함께 비교하며 전압·전류의 관계와 저항에 따른 차이를 발견하고, 이를 근거로 미지 저항의 크기를 추론한다.</span></div></td></tr><tr><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:109px"><div class="p"><span>수업자의 </span></div><div class="p"><span>의도</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:109px"><div class="p"><span> 학생이 실험에서 얻은 수치를 단순히 기록하는 데 그치지 않고, 데이터를 수집·공유·시각화·해석하는 과정을 통해 과학적 결론을 도출하도록 하는 데 중점을 두었다. 개별 모둠의 결과가 공동 그래프에 실시간으로 누적되도록 하여, 측정값을 전체 자료와 비교하고 공통 경향과 차이를 탐색하도록 구성하였다. 이를 통해 옴의 법칙을 공식 암기가 아닌 데이터에 근거한 탐구 결과로 이해하도록 하고자 한다.</span></div></td></tr><tr><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:102px"><div class="p"><span>학생 참여를 위한 노력</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:102px"><div class="p"><span> 도입에서 “전압과 전류 데이터만으로 값을 모르는 저항의 크기를 알아낼 수 있을까?”라는 질문을 제시한다. 학생들은 측정한 전압과 전류를 태블릿 웹앱에 직접 입력한다. 학생들은 자신의 모둠과 다른 모둠의 결과를 비교하며 경향 및 차이가 나타나는 이유를 토의한다. </span></div></td></tr><tr><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:114px"><div class="p"><span>수업 고민</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:114px"><div class="p"><span> 전류, 전압, 저항은 눈에 보이지 않는 추상적인 개념으로, 학생들이 각각의 의미를 이해하고 이들 사이의 관계를 스스로 추론하는 데 어려움을 겪을 수 있다. 따라서 직접 측정한 전압과 전류의 값을 실시간으로 수집하고, 모둠별 데이터를 통합한 그래프를 시각적으로 비교·분석함으로써 추상적인 개념을 구체적인 데이터와 연결하여 이해할 수 있도록 지도하고자 한다.</span></div></td></tr><tr><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:114px"><div class="p"><span>학급의 특징</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:114px"><div class="p"><span> 본 학급은 실험과 디지털 도구를 활용한 활동에 흥미를 보이며 소규모 모둠에서 의견을 나누는 데 비교적 적극적이다. 다만 전압·전류·저항의 관계를 수치와 그래프로 함께 해석하는 데에는 개인차가 있을 수 있다. 이에 모둠별 측정과 입력에 모두 참여하도록 하고, 교사 전자칠판의 통합 그래프를 공동으로 관찰하면서 자료에 근거해 설명할 기회를 제공하고자 한다.</span></div></td></tr><tr><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:117px"><div class="p"><span>부탁의 말</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:117px"><div class="p"><span> 학생들이 직접 측정한 값이 교사 전자칠판에 실시간으로 모이고, 여러 모둠의 데이터가 공동 그래프로 형성되는 과정에 주목해 주시면 감사하겠습니다. 특히 자료를 정확히 수집하고 입력하는 태도, 자신의 결과를 전체 데이터와 비교하고 해석하며 생각을 수정하는 모습, 그래프를 근거로 옴의 법칙과 미지 저항을 추론하는 과정을 중심으로 살펴봐 주시고 조언 부탁드립니다.</span></div></td></tr></tbody></table></div></div><div class="p"> </div><div class="p"> </div>
+</main>
+<script>
+(function(){function fit(){[].forEach.call(document.querySelectorAll('.grp'),function(g){var w=parseFloat(g.dataset.w)||g.clientWidth;var s=g.clientWidth/w;g.firstElementChild.style.transform=s<0.999?'scale('+s+')':''})}
+window.addEventListener('resize',fit);window.addEventListener('beforeprint',fit);fit();})();
+</script>
+<script>
+(function(){
+  var KEY='ws:'+"bc43176f81ab";
+  var fields=[].slice.call(document.querySelectorAll('[data-k]'));
+  var prog=document.getElementById('prog'), saved=document.getElementById('saved');
+  function store(){try{return window.localStorage}catch(e){return null}}
+  function load(){var s=store();if(!s)return;try{var d=JSON.parse(s.getItem(KEY)||'{}');fields.forEach(function(f){if(d[f.dataset.k]!=null&&!f.value)f.value=d[f.dataset.k]})}catch(e){}}
+  function save(){var s=store();var d={};fields.forEach(function(f){if(f.value)d[f.dataset.k]=f.value});if(s){try{s.setItem(KEY,JSON.stringify(d));saved.textContent='자동 저장됨'}catch(e){}}update()}
+  function update(){var n=fields.filter(function(f){return f.value.trim()}).length;prog.textContent=fields.length?('빈칸 '+n+' / '+fields.length):''}
+  function grow(f){if(f.tagName!=='INPUT')return;var len=Math.max(f.value.length,0);var base=parseFloat(f.dataset.w||f.style.width);if(!f.dataset.w)f.dataset.w=base;f.style.width=Math.max(base,len*1.05+1)+'em'}
+  var t;fields.forEach(function(f){f.addEventListener('input',function(){grow(f);clearTimeout(t);t=setTimeout(save,300)})});
+  // Enter 로 다음 칸 이동
+  fields.forEach(function(f,i){if(f.tagName==='INPUT')f.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();var nx=fields[i+1];if(nx)nx.focus()}})});
+  document.getElementById('btnPrint').onclick=function(){window.print()};
+  document.getElementById('btnClear').onclick=function(){if(!confirm('입력한 답을 모두 지울까요?'))return;fields.forEach(function(f){f.value='';grow(f)});save();saved.textContent=''};
+  document.getElementById('btnSave').onclick=function(){
+    fields.forEach(function(f){if(f.tagName==='TEXTAREA')f.textContent=f.value;else f.setAttribute('value',f.value)});
+    var html='<!doctype html>\n'+document.documentElement.outerHTML;
+    var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));
+    a.download=(document.title||'학습지')+'_답안.html';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500)};
+  load();fields.forEach(grow);update();
+})();
+</script>
+</body>
+</html>
