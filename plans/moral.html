@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>도덕 공개수업 지도안</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;800&family=Noto+Serif+KR:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--desk:#eef0f3;--paper:#fff;--ink:#111;--muted:#5b6270;--accent:#2457c5;--blank-bg:#f3f7ff;--blank-line:#2457c5;--bar:#ffffffee;--bar-line:#d9dde5;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--desk);color:var(--ink)}
+body{font-family:'함초롬바탕','Noto Serif KR',serif;font-size:10pt;-webkit-text-size-adjust:100%}
+.bar{position:sticky;top:0;z-index:10;display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 16px;background:var(--bar);backdrop-filter:blur(6px);border-bottom:1px solid var(--bar-line);font-family:'Noto Sans KR',sans-serif;font-size:14px}
+.bar .ttl{font-weight:700;margin-right:auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.bar .prog{color:var(--muted);font-size:13px}
+.bar button{font:inherit;font-size:13px;padding:6px 12px;border-radius:8px;border:1px solid var(--bar-line);background:#fff;color:var(--ink);cursor:pointer}
+.bar button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.bar button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.saved{font-size:12px;color:var(--muted)}
+.page{width:min(794px,100% - 32px);margin:24px auto 48px;background:var(--paper);padding:24px 45px 24px 45px;box-shadow:0 1px 3px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.06);border-radius:2px;overflow-wrap:anywhere}
+.p{line-height:1.6;min-height:1em;white-space:normal}
+.p.has-block{text-indent:0!important}
+.p.pb{margin-top:40px;padding-top:28px;border-top:2px dashed #c9ced8}
+.tab{display:inline-block;width:2em}
+.num{font-weight:inherit}
+.tblwrap{max-width:100%;overflow-x:auto}
+.tblwrap table{border-collapse:collapse;table-layout:fixed;margin:2px 0;text-indent:0}
+td{padding:2px 6px;word-break:keep-all;overflow-wrap:anywhere}
+td .p{text-indent:0}
+img{max-width:100%;height:auto;vertical-align:middle}
+.who{display:flex;justify-content:flex-end;gap:14px;flex-wrap:wrap;font:13px/1.6 'Noto Sans KR',sans-serif;margin:-8px 0 10px}
+.grp{position:relative;margin:2px auto;text-indent:0;max-width:100%}
+.grp-in{position:absolute;left:0;top:0;transform-origin:0 0}
+.gitem{position:absolute}
+.gitem .grp{margin:0;width:100%!important}
+.gbox{width:100%;height:100%;overflow:visible}
+.gbox .p{white-space:nowrap}
+.box{display:inline-block;vertical-align:top;padding:6px 8px;margin:2px 0;text-indent:0}
+.eq{font-family:'Cambria Math','Times New Roman',serif;font-style:italic;padding:0 2px}
+input.blank{font:inherit;font-family:'Noto Sans KR',sans-serif;color:var(--accent);border:0;border-bottom:1.5px solid var(--blank-line);background:var(--blank-bg);padding:0 4px;margin:0 2px;height:1.45em;vertical-align:baseline;border-radius:3px 3px 0 0;text-indent:0;max-width:100%}
+input.blank-par{margin:0 1px}
+textarea.blank-area{display:block;width:100%;font:inherit;font-family:'Noto Sans KR',sans-serif;color:var(--accent);background:var(--blank-bg);border:1px dashed #9db4e6;border-radius:4px;padding:4px 6px;resize:vertical;text-indent:0;min-height:2em;line-height:1.6;margin:2px 0}
+td.cell-blank textarea.blank-area{border:0;margin:0;min-height:100%;border-radius:0}
+input.blank:focus,textarea.blank-area:focus{outline:2px solid var(--accent);outline-offset:1px;background:#fff}
+.note{width:min(794px,100% - 32px);margin:12px auto 0;font:13px/1.5 'Noto Sans KR',sans-serif;color:#7a5200;background:#fff7e0;border:1px solid #f0d58a;border-radius:8px;padding:8px 12px}
+@media (max-width:640px){.page{padding:20px 14px;width:calc(100% - 16px);margin:8px auto 32px}.bar{padding:8px 12px}}
+@media print{
+  @page{size:A4;margin:12mm}
+  html,body{background:#fff}
+  .bar,.note{display:none!important}
+  .page{box-shadow:none;margin:0;padding:0;width:auto}
+  .p.pb{break-before:page;border-top:0;margin-top:0;padding-top:0}
+  input.blank,textarea.blank-area{background:transparent;color:#000}
+  textarea.blank-area{border:0;resize:none}
+  .tblwrap{overflow:visible}
+}
+
+</style>
+</head>
+<body>
+<header class="bar">
+  <span class="ttl">도덕 공개수업 지도안</span>
+  <span class="prog" id="prog"></span>
+  <span class="saved" id="saved"></span>
+  <button type="button" id="btnClear">답안 지우기</button>
+  <button type="button" id="btnSave">답안 포함 저장</button>
+  <button type="button" class="primary" id="btnPrint">인쇄 / PDF</button>
+</header>
+<main class="page" id="sheet">
+<div class="p has-block"><span> </span><div class="box" style="border:1px solid #999"><div class="p"><span>나눔과 성찰을 위한 수∙업∙열∙기</span></div></div></div><div class="p has-block"><div class="tblwrap"><table style="width:min(636px,100%)"><colgroup><col style="width:13.40%"><col style="width:11.50%"><col style="width:11.50%"><col style="width:12.21%"><col style="width:19.45%"><col style="width:6.38%"><col style="width:6.38%"><col style="width:9.59%"><col style="width:9.59%"></colgroup><tbody><tr><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:28px"><div class="p"><span>수업교사</span></div></td><td colspan="2" style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:28px"><div class="p"><span>남대성</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:28px"><div class="p"><span>교과</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:28px"><div class="p"><span>도덕</span></div></td><td colspan="2" style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:28px"><div class="p"><span>공개학급</span></div></td><td colspan="2" style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:28px"><div class="p"><span>1학년 1반</span></div></td></tr><tr><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:37px"><div class="p"><span>수업일시</span></div></td><td colspan="4" style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:37px"><div class="p"><span>2026년  11월    16일   월요일 (5교시)</span></div></td><td colspan="2" style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:37px"><div class="p"><span>공개장소</span></div></td><td colspan="2" style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:37px"><div class="p"><span>다락방</span></div></td></tr></tbody></table></div></div><div class="p has-block"><div class="tblwrap"><table style="width:min(635px,100%)"><colgroup><col style="width:17.91%"><col style="width:82.09%"></colgroup><tbody><tr><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:56px"><div class="p"><span>단원명</span></div><div class="p"><span>(또는학습주제)</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:56px"><div class="p"><span>우리 학교의 소중한 생명체 이야기</span></div><div class="p"><span>(물어고개 너머, 삼성중학교에서 함께 살아가기)</span></div></td></tr><tr><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:72px"><div class="p"><span> 수업 목적</span></div><div class="p"><span>(학습 목표)</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:72px"><div class="p"><span>· 생명의 소중함에 대해 깨달을 수 있다. </span></div><div class="p"><span>· 생명에 대한 바람직한 태도를 지닐 수 있다.</span></div></td></tr><tr><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:386px"><div class="p"><span>학생 참여를 위한 노력</span></div><div class="p"><span>(수업 방법 등)</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:386px"><div class="p"><span> </span> </div><div class="p"><span> 생명의 소중함을 깨닫는 시간을 가져볼 수 있도록 수업을 디자인함. 학생들이 흥미를 느끼고 참여할 수 있는 활동을 통해 능동적인 학습이 이루어지도록 함.</span></div><div class="p"><span> </span> </div><div class="p"><span>1. 도입 : 우리 학교의 행복한 이야기 영상 시사회</span></div><div class="p"> </div><div class="p"><span>2. 우리 학교 생명체 소개 하기</span></div><div class="p"><span> ▷ 나무, 꽃, 식물, 곤충, 채소, 동물, 우리 학교 마스코트</span></div><div class="p"><span> ▷ 학생 발표</span></div><div class="p"><span>3. 나도 우리도 소중한 생명체</span></div><div class="p"><span> ▷ 서클 대화, 한 사람씩 모두가 주인공, 나와 친구를 알아가는 질문</span></div><div class="p"><span> ▷ 서로를 더 깊이 알아가는 질문, 생명을 생각하는 질문</span></div><div class="p"><span> ▷ 투닝 캐릭터로 나를 소개하는 말</span></div><div class="p"><span> </span> </div><div class="p"><span>4. 생명 존중 약속</span></div><div class="p"><span> ▷ 생명 존중 실천 약속 작성하기</span></div><div class="p"><span> </span> </div><div class="p"><span>5. 새로운 시작의 의미 알리기</span></div><div class="p"> </div></td></tr><tr><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:107px"><div class="p"><span>수업 고민</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:107px"><div class="p"><span> 1학년 학생 모두가 함께 참여할 수 있는 수업에 대해 고민을 많이 함.</span></div><div class="p"><span> 특히 개성이 강하고 자기 말을 하기 좋아하는 학생들이 친구의 말을 귀 기울여 듣고, 생명을 소중하게 생각할 수 있도록 기획함.</span></div></td></tr><tr><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:126px"><div class="p"><span>참관자에게</span></div><div class="p"><span>부탁의 말</span></div></td><td style="border-left:1px solid #000;border-right:1px solid #000;border-top:1px solid #000;border-bottom:1px solid #000;vertical-align:middle;height:126px"><div class="p"><span> 너무나도 다른 개성을 지닌 학생들이 모여 조금씩 퍼즐을 맞추듯 조화를 이루어 가고 있는 학급입니다. 수업 참관을 하시면서 학생들에게 많은 칭찬과 긍정적인 눈빛 부탁드립니다. 아울러 생명의 소중함을 알아가는 수업 속에서 친구와의 우정, 더 나아가 자신을 사랑하는 방법에 대해 함께 생각하는 시간이 되시길 바랍니다.</span></div></td></tr></tbody></table></div></div><div class="p"><span> </span> </div>
+</main>
+<script>
+(function(){function fit(){[].forEach.call(document.querySelectorAll('.grp'),function(g){var w=parseFloat(g.dataset.w)||g.clientWidth;var s=g.clientWidth/w;g.firstElementChild.style.transform=s<0.999?'scale('+s+')':''})}
+window.addEventListener('resize',fit);window.addEventListener('beforeprint',fit);fit();})();
+</script>
+<script>
+(function(){
+  var KEY='ws:'+"81c4599ddc27";
+  var fields=[].slice.call(document.querySelectorAll('[data-k]'));
+  var prog=document.getElementById('prog'), saved=document.getElementById('saved');
+  function store(){try{return window.localStorage}catch(e){return null}}
+  function load(){var s=store();if(!s)return;try{var d=JSON.parse(s.getItem(KEY)||'{}');fields.forEach(function(f){if(d[f.dataset.k]!=null&&!f.value)f.value=d[f.dataset.k]})}catch(e){}}
+  function save(){var s=store();var d={};fields.forEach(function(f){if(f.value)d[f.dataset.k]=f.value});if(s){try{s.setItem(KEY,JSON.stringify(d));saved.textContent='자동 저장됨'}catch(e){}}update()}
+  function update(){var n=fields.filter(function(f){return f.value.trim()}).length;prog.textContent=fields.length?('빈칸 '+n+' / '+fields.length):''}
+  function grow(f){if(f.tagName!=='INPUT')return;var len=Math.max(f.value.length,0);var base=parseFloat(f.dataset.w||f.style.width);if(!f.dataset.w)f.dataset.w=base;f.style.width=Math.max(base,len*1.05+1)+'em'}
+  var t;fields.forEach(function(f){f.addEventListener('input',function(){grow(f);clearTimeout(t);t=setTimeout(save,300)})});
+  // Enter 로 다음 칸 이동
+  fields.forEach(function(f,i){if(f.tagName==='INPUT')f.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();var nx=fields[i+1];if(nx)nx.focus()}})});
+  document.getElementById('btnPrint').onclick=function(){window.print()};
+  document.getElementById('btnClear').onclick=function(){if(!confirm('입력한 답을 모두 지울까요?'))return;fields.forEach(function(f){f.value='';grow(f)});save();saved.textContent=''};
+  document.getElementById('btnSave').onclick=function(){
+    fields.forEach(function(f){if(f.tagName==='TEXTAREA')f.textContent=f.value;else f.setAttribute('value',f.value)});
+    var html='<!doctype html>\n'+document.documentElement.outerHTML;
+    var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));
+    a.download=(document.title||'학습지')+'_답안.html';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500)};
+  load();fields.forEach(grow);update();
+})();
+</script>
+</body>
+</html>
